@@ -1,11 +1,31 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz de Programación</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    
+  <main class="container">
+    <!-- Sección de inicio -->
+    <section id="inicio">
+      <h1>Quiz Temático: Programación</h1>
+      <form id="form-nombre">
+        <label for="nombre">Ingresa tu nombre:</label><br />
+        <input type="text" id="nombre" required />
+        <br />
+        <button type="submit" id="btn-iniciar" disabled>Iniciar Quiz</button>
+      </form>
+    </section>
+
+    <!-- Sección del quiz -->
+    <section id="quiz" class="oculto">
+      <h2>¡Bienvenido al Quiz!</h2>
+      <p>Aquí aparecerán las preguntas...</p>
+    </section>
+  </main>
+
+  <script src="scripts.js"></script>
 </body>
 </html>
