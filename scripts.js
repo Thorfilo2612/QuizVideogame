@@ -77,15 +77,22 @@ const preguntas = [
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
+
   // Variables principales 
   const form = document.getElementById('form-nombre');
   const input = document.getElementById('nombre');
   const btnIniciar = document.getElementById('btn-iniciar');
   const btnSiguiente = document.getElementById('btn-siguiente');
 
+  // Botones de resultado
+  const btnNuevo = document.getElementById('btn-nuevo');
+  const btnMenu = document.getElementById('btn-menu');
+
   let nombreUsuario = '';
   let preguntasSeleccionadas = [];
   let preguntaActual = 0;
+  let puntaje = 0;
+  mostrarRanking(); // Llamado para que se muestre al inicio
 
   // Evento: activar botón si hay texto 
   input.addEventListener('input', () => {
@@ -105,8 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
       preguntaActual++;
       mostrarPregunta();
     } else {
-      alert("¡Fin del quiz!");
-      // Aquí irán resultados finales
+      mostrarResultados();
     }
   });
 
@@ -148,19 +154,100 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Lógica: seleccionar una opción 
   function seleccionarOpcion(boton, respuestaCorrecta) {
-    document.querySelectorAll('.opcion').forEach(btn => btn.disabled = true);
+    const seleccion = boton.textContent.trim();
 
-    if (boton.textContent === respuestaCorrecta) {
-      boton.classList.add('correcta');
-    } else {
-      boton.classList.add('incorrecta');
-      document.querySelectorAll('.opcion').forEach(btn => {
-        if (btn.textContent === respuestaCorrecta) {
-          btn.classList.add('correcta');
-        }
-      });
+    document.querySelectorAll('.opcion').forEach(btn => {
+      btn.disabled = true;
+      if (btn.textContent.trim() === respuestaCorrecta) {
+        btn.classList.add('correcta');
+      }
+      if (btn === boton && seleccion !== respuestaCorrecta) {
+        btn.classList.add('incorrecta');
+      }
+    });
+
+    // Aumentar puntaje si es correcto
+    if (seleccion === respuestaCorrecta) {
+      puntaje++;
     }
   }
+
+  function mostrarResultados() {
+    document.getElementById('quiz').classList.add('oculto');
+    document.getElementById('resultado').classList.remove('oculto');
+
+    const porcentaje = Math.round((puntaje / preguntasSeleccionadas.length) * 100);
+    document.getElementById('puntaje').textContent = `Puntaje: ${puntaje} / ${preguntasSeleccionadas.length}`;
+    document.getElementById('porcentaje').textContent = `Porcentaje de aciertos: ${porcentaje}%`;
+
+    guardarResultado(nombreUsuario, puntaje);
+    mostrarRanking();
+  }
+
+  function reiniciarQuiz() {
+    puntaje = 0;
+    preguntaActual = 0;
+    preguntasSeleccionadas = [];
+    document.getElementById('resultado').classList.add('oculto');
+    document.getElementById('quiz').classList.remove('oculto');
+    seleccionarPreguntas();
+    mostrarPregunta();
+  }
+
+  function reiniciarTodo() {
+    location.reload(); // Simple y efectivo para reiniciar al menú
+  }
+
+  // Eventos
+  btnNuevo.addEventListener('click', () => {
+    reiniciarQuiz();
+  });
+
+  btnMenu.addEventListener('click', () => {
+    reiniciarTodo();
+  });
+
+  function guardarResultado(nombre, puntaje) {
+    const resultado = {
+      nombre: nombre,
+      puntaje: puntaje,
+      fecha: new Date().toLocaleDateString()
+    };
+
+    // Obtener historial anterior o crear nuevo
+    let historial = JSON.parse(localStorage.getItem('resultadosQuiz')) || [];
+
+    // Agregar nuevo resultado
+    historial.push(resultado);
+
+    // Ordenar por puntaje (mayor primero)
+    historial.sort((a, b) => b.puntaje - a.puntaje);
+
+    // Mantener solo los 5 mejores
+    historial = historial.slice(0, 5);
+
+    // Guardar de nuevo
+    localStorage.setItem('resultadosQuiz', JSON.stringify(historial));
+  }
+
+  function mostrarRanking() {
+    const tabla = document.getElementById('tabla-ranking');
+    tabla.innerHTML = ''; // Limpiar
+
+    const historial = JSON.parse(localStorage.getItem('resultadosQuiz')) || [];
+
+    historial.forEach(res => {
+      const fila = document.createElement('tr');
+      fila.innerHTML = `
+        <td>${res.nombre}</td>
+        <td>${res.puntaje}</td>
+        <td>${res.fecha}</td>
+      `;
+      tabla.appendChild(fila);
+    });
+  }
+
+
 
 });
 
