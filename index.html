@@ -27,7 +27,34 @@
       <div id="opciones"></div>
       <button id="btn-siguiente">Siguiente</button>
     </section>
+
+    <!-- Sección de resultados -->
+    <section id="resultado" class="oculto">
+      <h2>Resultados</h2>
+      <p id="puntaje"></p>
+      <p id="porcentaje"></p>
+      <button id="btn-nuevo">Nuevo Quiz</button>
+      <button id="btn-menu">Volver al Menú</button>
+    </section>
   </main>
+
+  <!-- Tabla de ranking -->
+  <section id="ranking">
+    <h2>Top 5 Puntajes</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nombre</th>
+          <th>Puntaje</th>
+          <th>Fecha</th>
+        </tr>
+      </thead>
+      <tbody id="tabla-ranking">
+        <!-- Aquí se insertan los puntajes -->
+      </tbody>
+    </table>
+  </section>
+
 
   <script src="scripts.js"></script>
 </body>
