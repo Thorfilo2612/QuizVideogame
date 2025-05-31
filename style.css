@@ -1,39 +1,119 @@
+/* Fuente estilo pixel retro (puedes incluir una más adelante con @font-face o Google Fonts) */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #111;
+  color: #fff;
   margin: 0;
   padding: 0;
 }
 
+/* Contenedor general */
 .container {
-  max-width: 700px;
+  max-width: 800px;
   margin: auto;
   padding: 20px;
   text-align: center;
 }
 
+/* Ocultar secciones */
 .oculto {
   display: none;
 }
 
+/* Inputs y botones */
 input, button {
-  padding: 10px;
-  margin: 10px;
+  padding: 12px 20px;
   font-size: 16px;
+  margin: 10px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
 }
 
-#quiz {
-  margin-top: 20px;
+/* Botones generales */
+button {
+  background-color: #1e90ff;
+  color: white;
+  cursor: pointer;
+  transition: 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
 }
 
-.correcta {
-  background-color: #a6e6a1; /* verde claro */
-  color: #000;
+button:hover {
+  background-color: #0d6efd;
+}
+
+/* Botones de opciones */
+#opciones button {
+  width: 80%;
+  margin: 10px auto;
+  display: block;
+  background-color: #333;
+  border: 2px solid #666;
+  transition: 0.2s ease;
+}
+
+#opciones button:hover {
+  background-color: #444;
+  border-color: #fff;
+}
+
+/* Temporizador */
+#temporizador {
   font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 15px;
+  color: #00ffcc;
+}
+
+/* Pregunta */
+#pregunta {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+/* Colores para respuestas */
+.correcta {
+  background-color: #28a745 !important;
+  color: #fff;
 }
 
 .incorrecta {
-  background-color: #f6a6a6; /* rojo claro */
-  color: #000;
-  font-weight: bold;
+  background-color: #dc3545 !important;
+  color: #fff;
 }
+
+/* Tabla de ranking */
+table {
+  width: 100%;
+  margin-top: 20px;
+  border-collapse: collapse;
+  background-color: #222;
+  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+}
+
+th, td {
+  padding: 12px;
+  border: 1px solid #444;
+  text-align: center;
+}
+
+th {
+  background-color: #0077cc;
+  color: #fff;
+}
+
+tr:nth-child(even) {
+  background-color: #333;
+}
+
+tr:hover {
+  background-color: #444;
+}
+
+/* Títulos */
+h1, h2 {
+  color: #00ffff;
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+}
+
