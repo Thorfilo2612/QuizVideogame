@@ -76,19 +76,91 @@ const preguntas = [
   }
 ];
 
-
 document.addEventListener('DOMContentLoaded', () => {
+  // Variables principales 
   const form = document.getElementById('form-nombre');
   const input = document.getElementById('nombre');
   const btnIniciar = document.getElementById('btn-iniciar');
+  const btnSiguiente = document.getElementById('btn-siguiente');
 
+  let nombreUsuario = '';
+  let preguntasSeleccionadas = [];
+  let preguntaActual = 0;
+
+  // Evento: activar botón si hay texto 
   input.addEventListener('input', () => {
     btnIniciar.disabled = input.value.trim() === '';
   });
 
+  // Evento: enviar formulario e iniciar quiz
   form.addEventListener('submit', (e) => {
     e.preventDefault();
+    nombreUsuario = input.value.trim();
+    mostrarQuiz();
+  });
+
+  // Evento: siguiente pregunta 
+  btnSiguiente.addEventListener('click', () => {
+    if (preguntaActual < preguntasSeleccionadas.length - 1) {
+      preguntaActual++;
+      mostrarPregunta();
+    } else {
+      alert("¡Fin del quiz!");
+      // Aquí irán resultados finales
+    }
+  });
+
+  // Lógica: iniciar el quiz 
+  function mostrarQuiz() {
     document.getElementById('inicio').classList.add('oculto');
     document.getElementById('quiz').classList.remove('oculto');
-  });
+    seleccionarPreguntas();
+    mostrarPregunta();
+  }
+
+  // Lógica: seleccionar preguntas aleatorias
+  function seleccionarPreguntas() {
+    preguntasSeleccionadas = [];
+    const copia = [...preguntas];
+    while (preguntasSeleccionadas.length < 10 && copia.length > 0) {
+      const i = Math.floor(Math.random() * copia.length);
+      preguntasSeleccionadas.push(copia.splice(i, 1)[0]);
+    }
+  }
+
+  // Lógica: mostrar una pregunta 
+  function mostrarPregunta() {
+    const pregunta = preguntasSeleccionadas[preguntaActual];
+    const contenedorPregunta = document.getElementById('pregunta');
+    const contenedorOpciones = document.getElementById('opciones');
+
+    contenedorPregunta.textContent = `${preguntaActual + 1}. ${pregunta.pregunta}`;
+    contenedorOpciones.innerHTML = '';
+
+    pregunta.opciones.forEach(opcion => {
+      const btn = document.createElement('button');
+      btn.textContent = opcion;
+      btn.classList.add('opcion');
+      btn.addEventListener('click', () => seleccionarOpcion(btn, pregunta.respuesta));
+      contenedorOpciones.appendChild(btn);
+    });
+  }
+
+  // Lógica: seleccionar una opción 
+  function seleccionarOpcion(boton, respuestaCorrecta) {
+    document.querySelectorAll('.opcion').forEach(btn => btn.disabled = true);
+
+    if (boton.textContent === respuestaCorrecta) {
+      boton.classList.add('correcta');
+    } else {
+      boton.classList.add('incorrecta');
+      document.querySelectorAll('.opcion').forEach(btn => {
+        if (btn.textContent === respuestaCorrecta) {
+          btn.classList.add('correcta');
+        }
+      });
+    }
+  }
+
 });
+
