@@ -25,3 +25,15 @@ input, button {
 #quiz {
   margin-top: 20px;
 }
+
+.correcta {
+  background-color: #a6e6a1; /* verde claro */
+  color: #000;
+  font-weight: bold;
+}
+
+.incorrecta {
+  background-color: #f6a6a6; /* rojo claro */
+  color: #000;
+  font-weight: bold;
+}
