@@ -1,16 +1,43 @@
-/* Fuente estilo pixel retro (puedes incluir una más adelante con @font-face o Google Fonts) */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background-color: #111;
-  color: #fff;
-  margin: 0;
-  padding: 0;
+/* style.css */
+
+/* Variables de Color y Tipografía */
+:root {
+  --bg-color: #111;
+  --text-color: #fff;
+  --primary-color: #1e90ff;
+  --secondary-color: #00ffff;
+  --success-color: #28a745;
+  --error-color: #dc3545;
+  --muted-bg: #222;
+  --border-color: #444;
+  --radius: 8px;
+  --transition: 0.3s ease;
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Contenedor general */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  font-family: var(--font-family);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+}
+
 .container {
+  width: 100%;
   max-width: 800px;
-  margin: auto;
+  background-color: var(--muted-bg);
+  border-radius: var(--radius);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.7);
   padding: 20px;
   text-align: center;
 }
@@ -20,101 +47,183 @@ body {
   display: none;
 }
 
-/* Inputs y botones */
-input, button {
+/* Títulos */
+h1, h2 {
+  color: var(--secondary-color);
+  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+  margin-bottom: 15px;
+}
+
+/* Formulario de Inicio */
+#form-nombre {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+#form-nombre label {
+  font-size: 1rem;
+}
+
+#form-nombre input {
   padding: 12px 20px;
-  font-size: 16px;
-  margin: 10px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border-color);
+  background-color: #2a2a2a;
+  color: var(--text-color);
+  font-size: 1rem;
+}
+
+#form-nombre button {
+  padding: 12px 20px;
+  background-color: var(--primary-color);
+  color: var(--text-color);
   border: none;
-  border-radius: 8px;
-  outline: none;
-}
-
-/* Botones generales */
-button {
-  background-color: #1e90ff;
-  color: white;
+  border-radius: var(--radius);
+  font-size: 1rem;
   cursor: pointer;
-  transition: 0.3s ease;
-  box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+  transition: background var(--transition);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
 
-button:hover {
+#form-nombre button:disabled {
+  background-color: #555;
+  cursor: not-allowed;
+}
+
+#form-nombre button:not(:disabled):hover {
   background-color: #0d6efd;
 }
 
-/* Botones de opciones */
-#opciones button {
-  width: 80%;
-  margin: 10px auto;
-  display: block;
+/* Tabla de Ranking */
+#ranking {
+  margin-top: 20px;
+}
+
+#ranking table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+#ranking th,
+#ranking td {
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+
+#ranking th {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+#ranking tr:nth-child(even) {
   background-color: #333;
-  border: 2px solid #666;
-  transition: 0.2s ease;
 }
 
-#opciones button:hover {
+#ranking tr:hover {
   background-color: #444;
-  border-color: #fff;
 }
 
-/* Temporizador */
+/* Cronómetro */
 #temporizador {
   font-weight: bold;
-  font-size: 20px;
+  font-size: 1.5rem;
   margin-bottom: 15px;
   color: #00ffcc;
 }
 
 /* Pregunta */
 #pregunta {
-  font-size: 18px;
-  margin-bottom: 10px;
+  font-size: 1.2rem;
+  margin-bottom: 15px;
 }
 
-/* Colores para respuestas */
+/* Opciones (botones) */
+#opciones {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+#opciones button {
+  padding: 12px 20px;
+  background-color: #333;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  color: var(--text-color);
+  cursor: pointer;
+  transition: background var(--transition), border var(--transition);
+}
+
+#opciones button:hover:not(:disabled) {
+  background-color: #444;
+  border-color: #fff;
+}
+
+#opciones button:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+/* Colores de feedback */
 .correcta {
-  background-color: #28a745 !important;
-  color: #fff;
+  background-color: var(--success-color) !important;
+  color: var(--text-color);
 }
 
 .incorrecta {
-  background-color: #dc3545 !important;
-  color: #fff;
+  background-color: var(--error-color) !important;
+  color: var(--text-color);
 }
 
-/* Tabla de ranking */
-table {
-  width: 100%;
-  margin-top: 20px;
-  border-collapse: collapse;
-  background-color: #222;
-  box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+/* Botones de Acción */
+.btn-accion {
+  padding: 12px 20px;
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: none;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background var(--transition);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  margin-top: 10px;
 }
 
-th, td {
-  padding: 12px;
-  border: 1px solid #444;
-  text-align: center;
+.btn-accion:hover:not(:disabled) {
+  background-color: #0d6efd;
 }
 
-th {
-  background-color: #0077cc;
-  color: #fff;
+.btn-accion:disabled {
+  background-color: #555;
+  cursor: not-allowed;
 }
 
-tr:nth-child(even) {
-  background-color: #333;
+/* Resultados */
+#resultados p {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
 }
 
-tr:hover {
-  background-color: #444;
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+  #pregunta {
+    font-size: 1rem;
+  }
+  #opciones button {
+    font-size: 0.9rem;
+    padding: 10px 15px;
+  }
+  .btn-accion {
+    width: 100%;
+  }
 }
-
-/* Títulos */
-h1, h2 {
-  color: #00ffff;
-  text-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
-}
-
 
