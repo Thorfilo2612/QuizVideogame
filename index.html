@@ -3,58 +3,66 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quiz de Programación</title>
+  <title>Quiz Temático: Videojuegos</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <main class="container">
-    <!-- Sección de inicio -->
+    <!-- Sección de Inicio -->
     <section id="inicio">
-      <h1>Quiz Temático: Videogames</h1>
+      <h1>Quiz Temático: Videojuegos</h1>
       <form id="form-nombre">
         <label for="nombre">Ingresa tu nombre:</label><br />
-        <input type="text" id="nombre" required />
+        <input type="text" id="nombre" name="nombre" required />
         <br />
         <button type="submit" id="btn-iniciar" disabled>Iniciar Quiz</button>
       </form>
+
+      <!-- Tabla de Ranking (Top 5) -->
+      <section id="ranking">
+        <h2>Top 5 Puntajes</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Puntaje</th>
+              <th>Fecha</th>
+            </tr>
+          </thead>
+          <tbody id="tabla-ranking">
+            <!-- Aquí se irán insertando las filas desde JS -->
+          </tbody>
+        </table>
+      </section>
     </section>
 
-    <!-- Sección del quiz -->
+    <!-- Sección del Quiz -->
     <section id="quiz" class="oculto">
-      <h2>¡Bienvenido al Quiz!</h2>
-      <p>Aquí aparecerán las preguntas...</p>
-      <div id="pregunta"></div>
-      <div id="opciones"></div>
-      <button id="btn-siguiente">Siguiente</button>
+      <!-- Cronómetro -->
+      <div id="temporizador">
+        Tiempo restante: <span id="tiempo">05:00</span>
+      </div>
+
+      <!-- Zona de pregunta y opciones -->
+      <div id="pregunta">
+        <!-- El texto de la pregunta se inyectará desde JS -->
+      </div>
+      <div id="opciones">
+        <!-- Los botones de opciones se crearán desde JS -->
+      </div>
+
+      <button id="btn-siguiente" class="btn-accion" disabled>Siguiente</button>
     </section>
 
-    <!-- Sección de resultados -->
-    <section id="resultado" class="oculto">
+    <!-- Sección de Resultados -->
+    <section id="resultados" class="oculto">
       <h2>Resultados</h2>
       <p id="puntaje"></p>
       <p id="porcentaje"></p>
-      <button id="btn-nuevo">Nuevo Quiz</button>
-      <button id="btn-menu">Volver al Menú</button>
+      <button id="btn-nuevo" class="btn-accion">Nuevo Quiz</button>
+      <button id="btn-menu" class="btn-accion">Volver al Menú</button>
     </section>
   </main>
-
-  <!-- Tabla de ranking -->
-  <section id="ranking">
-    <h2>Top 5 Puntajes</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Nombre</th>
-          <th>Puntaje</th>
-          <th>Fecha</th>
-        </tr>
-      </thead>
-      <tbody id="tabla-ranking">
-        <!-- Aquí se insertan los puntajes -->
-      </tbody>
-    </table>
-  </section>
-
 
   <script src="scripts.js"></script>
 </body>
