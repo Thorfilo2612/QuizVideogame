@@ -1,5 +1,4 @@
-// scripts.js
-
+// Banco de preguntas (15) sobre videojuegos
 const preguntas = [
   {
     pregunta:
@@ -92,15 +91,15 @@ const preguntas = [
   },
 ];
 
-
+// Variables globales de estado
 let tiempoRestante = 300; // 300 segundos = 5 minutos
 let temporizadorId;
-
 let nombreUsuario = "";
 let preguntasSeleccionadas = [];
 let preguntaActual = 0;
 let puntaje = 0;
 
+// Elementos que usaremos frecuentemente
 const form = document.getElementById("form-nombre");
 const input = document.getElementById("nombre");
 const btnIniciar = document.getElementById("btn-iniciar");
@@ -112,20 +111,24 @@ const contenedorPregunta = document.getElementById("pregunta");
 const contenedorOpciones = document.getElementById("opciones");
 const spanTiempo = document.getElementById("tiempo");
 
+// Al cargar el documento, se muestra el ranking
 document.addEventListener("DOMContentLoaded", () => {
   mostrarRanking();
 });
 
+// Habilita el botón "Iniciar" solo si se ha ingresado texto
 input.addEventListener("input", () => {
   btnIniciar.disabled = input.value.trim() === "";
 });
 
+// Al enviar el formulario, se guarda el nombre y se inicia el quiz
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   nombreUsuario = input.value.trim();
   iniciarQuiz();
 });
 
+// Comienza una nueva sesión de quiz
 function iniciarQuiz() {
   // Ocultar la sección de inicio y muestro la del quiz
   document.getElementById("inicio").classList.add("oculto");
@@ -148,6 +151,7 @@ function iniciarQuiz() {
   iniciarTemporizador();
 }
 
+// Muestra una pregunta y sus opciones en pantalla
 function mostrarPregunta() {
   const preguntaObj = preguntasSeleccionadas[preguntaActual];
   contenedorPregunta.textContent = `${preguntaActual + 1}. ${
@@ -170,6 +174,7 @@ function mostrarPregunta() {
   btnSiguiente.disabled = true;
 }
 
+// Al seleccionar una opción, evalúa si es correcta y da retroalimentación
 function seleccionarOpcion(boton, respuestaCorrecta) {
   const seleccion = boton.textContent.trim();
 
@@ -190,6 +195,7 @@ function seleccionarOpcion(boton, respuestaCorrecta) {
   btnSiguiente.disabled = false;
 }
 
+// Muestra la siguiente pregunta o los resultados si ya terminó
 btnSiguiente.addEventListener("click", () => {
   if (preguntaActual < preguntasSeleccionadas.length - 1) {
     preguntaActual++;
@@ -199,6 +205,7 @@ btnSiguiente.addEventListener("click", () => {
   }
 });
 
+// Inicia el temporizador y actualiza cada segundo
 function iniciarTemporizador() {
   actualizarTiempo(); // Muestra inmediatamente 05:00
   temporizadorId = setInterval(() => {
@@ -212,6 +219,7 @@ function iniciarTemporizador() {
   }, 1000);
 }
 
+// Muestra el tiempo restante en formato MM:SS
 function actualizarTiempo() {
   const minutos = Math.floor(tiempoRestante / 60);
   const segundos = tiempoRestante % 60;
@@ -220,6 +228,7 @@ function actualizarTiempo() {
   spanTiempo.textContent = `${mm}:${ss}`;
 }
 
+// Muestra la pantalla de resultados y guarda puntaje
 function mostrarResultados() {
   clearInterval(temporizadorId);
   document.getElementById("quiz").classList.add("oculto");
@@ -240,6 +249,7 @@ function mostrarResultados() {
   mostrarRanking();
 }
 
+// Reinicia el quiz sin borrar historial
 function reiniciarQuiz() {
   document.getElementById("resultados").classList.add("oculto");
   document.getElementById("quiz").classList.remove("oculto");
@@ -265,6 +275,7 @@ btnMenu.addEventListener("click", () => {
   location.reload(); // Recarga la página para limpiar todo y volver al inicio
 });
 
+// Guarda resultado en localStorage (máximo top 5)
 function guardarResultado(nombre, puntaje) {
   const resultado = {
     nombre: nombre,
@@ -278,6 +289,7 @@ function guardarResultado(nombre, puntaje) {
   localStorage.setItem("resultadosQuiz", JSON.stringify(historial));
 }
 
+// Muestra el ranking actualizado desde localStorage
 function mostrarRanking() {
   const historial = JSON.parse(localStorage.getItem("resultadosQuiz")) || [];
   tablaRankingEl.innerHTML = "";
