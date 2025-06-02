@@ -26,11 +26,6 @@ Este proyecto es un quiz en línea sobre **videojuegos**, desarrollado como part
 - Diseño responsive (adaptado a móviles y escritorio).
 - Tema visual estilo videojuego con colores neón y tipografía moderna.
 
-## 🔗 Enlaces
-
-- 🔗 [Ver proyecto en GitHub Pages]([https://tu_usuario.github.io/quiz-tematico](https://thorfilo2612.github.io/QuizVideogame/))
-- 📁 [Repositorio del proyecto]([https://github.com/tu_usuario/quiz-tematico](https://github.com/Thorfilo2612/QuizVideogame))
-
 ## 👨‍💻 Autores
 
 - **Anthony Flamez** – [@Thorfilo2612]¡
